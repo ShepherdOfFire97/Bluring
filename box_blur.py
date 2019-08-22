@@ -14,7 +14,7 @@ for i in range(x):
     for j in range(y):
         for z in range (0, n):
             for k in range (0, n):
-                img_copy[i][j] += float(img[i+z][j+k])
+                img_copy[i][j] += float(img[i+z][j+k])  # following line is a hand written exp for a 5x5 kernel
         """img_copy[i][j] = (float(img[i][j])+float(img[i][j+1])+float(img[i][j+2])+float(img[i][j+3])+
         float(img[i][j+4])+float(img[i+1][j])+float(img[i+1][j+1])+float(img[i+1][j+2])+float(img[i+1][j+3])
         +float(img[i+1][j+4])+float(img[i+2][j])+float(img[i+2][j+1])+float(img[i+2][j+2])+float(img[i+2][j+3])+

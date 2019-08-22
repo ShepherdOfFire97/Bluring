@@ -11,11 +11,11 @@ from scipy import stats as st
 import cv2
 
 
-def gausk(klen, r):  # klen = kernel length, r = symmetric range
+def gausk(klen, r):
     """
     This function creates an nxn matrix that will be used to blur the image
-    :param klen: n for an nxn kernel
-    :param r: range of spread used for creating kernel
+    :param klen: n for an nxn kernel; klen = kernel length,
+    :param r: range of spread used for creating kernel; r = symmetric range
     :return: returns an nxn gaussian kernel that can be directly deployed to blur images [numpy array]
     """
     x = np.linspace(-r, r, klen+1)

@@ -9,39 +9,37 @@ import numpy as np
 from scipy import signal
 from scipy import stats as st
 import cv2
-import datetime
 
 
-def gausk(Kl, r):
+def gausk(klen, r):  # klen = kernel length, r = symmetric range
     """
-    This fucntion creates an nxn matrix that will be used to blur the image
-    :param Kl: n for an nxn kernel
+    This function creates an nxn matrix that will be used to blur the image
+    :param klen: n for an nxn kernel
     :param r: range of spread used for creating kernel
-    :return: returns an nxn gaussian kernel that can be directly deployed to blur images
+    :return: returns an nxn gaussian kernel that can be directly deployed to blur images [numpy array]
     """
-    X = np.linspace(-r, r, Kl+1)
-    k1d = np.diff(st.norm.cdf(X))  # creates col vec of random values; k1d = kernel1D
+    x = np.linspace(-r, r, klen+1)
+    k1d = np.diff(st.norm.cdf(x))  # creates col vec of random values; k1d = kernel1D
     k2d = np.outer(k1d, k1d)  # creates a matrix as an outer product of k1d; k2d = kernel2D
-    return k2d/k2d.sum()
+    return k2d/k2d.sum()  # creates gaussian kernel of nxn dimension
 
 
-def conv_blur(img,Kl,sig):
+def conv_blur(img, klen, r):
     """
     This function uses scipy.signal.convolve to convolute image
     :param img: image to be blurred
-    :param Kl: length of edge of the gaussian kernel (n in nxn)
-    :param sig: (standard deviation)
-    :return:
+    :param klen: length of edge of the gaussian kernel (n in nxn)
+    :param r: symmetric range from line 14
+    :return: blurred image [numpy array]
     """
-    GK = gausk(Kl, sig)
-    img_blur = signal.convolve2d(img, GK, mode='same')
+    gk = gausk(klen, r)  # GK is the created gaussian kernel
+    img_blur = signal.convolve2d(img, gk, mode='same')  # convolutes img and kernel w/o changing original img dim
     return img_blur
 
 
-
 if __name__ == "__main__":
-    img = cv2.imread("/Users/varunvasudevan/Desktop/Purdue/5_Fin/Research/Wavelet Denoising/DSC7.JPG", 0)
-    blur = conv_blur(img,23,3)
+    image = cv2.imread("/Users/varunvasudevan/Desktop/Purdue/5_Fin/Research/Wavelet Denoising/DSC7.JPG", 0)
+    blur = conv_blur(image, 23, 3)
     cv2.imwrite("conv_blur.jpg", blur)
 
 

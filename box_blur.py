@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 n = 11
-img = cv2.imread("/Users/varunvasudevan/Desktop/Purdue/5_Fin/Research/Wavelet Denoising/DSC6.JPG",0)
+img = cv2.imread("",0)
 dim = img.shape
 x = (dim[0]-(n-1))
 y = (dim[1]-(n-1))

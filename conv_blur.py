@@ -26,7 +26,7 @@ def gausk(klen, r):
 
 def conv_blur(img, klen, r):
     """
-    This function uses scipy.signal.convolve to convolute image
+    This function uses scipy.signal.convolve2d to convolute image
     :param img: image to be blurred
     :param klen: length of edge of the gaussian kernel (n in nxn)
     :param r: symmetric range from line 14
@@ -38,7 +38,7 @@ def conv_blur(img, klen, r):
 
 
 if __name__ == "__main__":
-    image = cv2.imread("/Users/varunvasudevan/Desktop/Purdue/5_Fin/Research/Wavelet Denoising/DSC7.JPG", 0)
+    image = cv2.imread("", 0)
     blur = conv_blur(image, 23, 3)
     cv2.imwrite("conv_blur.jpg", blur)
 

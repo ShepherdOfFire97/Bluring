@@ -2,6 +2,8 @@
 
 import numpy as np
 import cv2
+from scipy import signal
+
 
 def box_blur(img_path, n):
     """
@@ -11,20 +13,11 @@ def box_blur(img_path, n):
     :return: Blurred image
     """
     img = cv2.imread(img_path,0)
-    dim = img.shape
-    x = (dim[0]-(n-1))
-    y = (dim[1]-(n-1))
-    dim_new = (x, y)
-    img_copy = np.zeros(dim_new)
-    for i in range(10, x):
-        for j in range(10, y):
-            for z in range(0, n):
-                for k in range(0, n):
-                    img_copy[i][j] += float(img[i+z][j+k])
-            img_copy[i][j] = (img_copy[i][j])/(n**2)
-    print (img)
-    cv2.imwrite("box_blur.jpg", img_copy)
-    return (img_copy)
+    K = np.ones((n, n))
+    Kb = K/(n**2)
+    img_blur = signal.convolve2d(img,Kb)
+    cv2.imwrite("box_blur.jpg", img_blur)
+    return img_blur
 
 if __name__ == "__main__":
-    box_blur("orig.jpg",3)
+    box_blur("orig.jpg",17)

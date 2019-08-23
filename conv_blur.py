@@ -38,7 +38,7 @@ def conv_blur(img, klen, r):
 
 
 if __name__ == "__main__":
-    image = cv2.imread("orig.jpg", 0)
+    image = cv2.imread("DSC7.JPG", 0)
     blur = conv_blur(image, 23, 3)
     cv2.imwrite("conv_blur.jpg", blur)
 
